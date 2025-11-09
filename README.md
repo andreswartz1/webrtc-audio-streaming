@@ -1,18 +1,40 @@
 # 🎙️ WebRTC Audio Streaming App
 
-Aplicativo de streaming de áudio em tempo real usando WebRTC e Supabase.
+Aplicativo de streaming de áudio em tempo real usando WebRTC e Supabase com suporte a **streaming de microfone** e **playlist de MP3**.
 
 ## 🚀 Características
 
-- **Streaming de áudio P2P** via WebRTC
+- **Streaming de áudio P2P** via WebRTC com baixa latência
 - **Sinalização em tempo real** usando Supabase Realtime
+- **Dual-mode:** Microfone OU Playlist de MP3
+- **Player completo** com controles de playlist
+- **Suporte a múltiplos ouvintes** simultâneos
+- **Visualizador de áudio** em tempo real
 - **Interface moderna** e responsiva
-- **Suporte a múltiplos usuários** (broadcaster e listeners)
-- **Baixa latência** com conexão peer-to-peer
+
+## 🎵 Novidades - Suporte a MP3!
+
+### Modo Microfone
+- Transmita sua voz em tempo real
+- Ideal para podcasts, conversas, apresentações
+
+### Modo Playlist MP3
+- ✨ **Carregue múltiplos arquivos MP3**
+- ✨ **Player com controles:** Play/Pause, Próxima, Anterior
+- ✨ **Visualização de playlist** com faixas numeradas
+- ✨ **Barra de progresso** interativa
+- ✨ **Reprodução automática** ao final de cada faixa
+- ✨ **Clique na faixa** para tocar instantaneamente
+
+Perfeito para:
+- 🎶 Rádios online
+- 🎧 DJ sessions
+- 🎤 Streaming de música
+- 📻 Broadcasting de eventos
 
 ## 📋 Pré-requisitos
 
-- Navegador moderno com suporte a WebRTC
+- Navegador moderno com suporte a WebRTC (Chrome, Firefox, Edge, Safari)
 - Conta Supabase (gratuita)
 - Servidor HTTP para desenvolvimento local
 
@@ -91,19 +113,36 @@ php -S localhost:8000
 
 ### Como Broadcaster (Transmissor)
 
+#### Modo Microfone:
 1. Abra `http://localhost:8000`
-2. Digite um nome de sala (ex: "sala-teste")
-3. Clique em "Start Broadcasting"
-4. Permita acesso ao microfone quando solicitado
-5. Compartilhe o nome da sala com os ouvintes
+2. Digite um nome de sala (ex: "podcast-ao-vivo")
+3. Selecione **"🎤 Microfone"**
+4. Clique em "Start Broadcasting"
+5. Permita acesso ao microfone
+6. Compartilhe o nome da sala com os ouvintes
+
+#### Modo MP3 Playlist:
+1. Abra `http://localhost:8000`
+2. Digite um nome de sala (ex: "radio-hits")
+3. Selecione **"🎵 Arquivos MP3"**
+4. Clique em "Selecionar Arquivos MP3" e escolha suas músicas
+5. Veja a playlist aparecer
+6. Clique em "Start Broadcasting"
+7. Use os controles do player:
+   - ⏮️ **Anterior** - Volta para a faixa anterior
+   - ▶️/⏸️ **Play/Pause** - Pausa/Retoma a reprodução
+   - ⏭️ **Próxima** - Pula para próxima faixa
+   - 📊 **Barra de progresso** - Clique para avançar/retroceder
+   - 📋 **Lista** - Clique em qualquer faixa para tocar
 
 ### Como Listener (Ouvinte)
 
 1. Abra `http://localhost:8000` em outra aba/navegador
-2. Digite o mesmo nome da sala
+2. Digite o **mesmo nome da sala**
 3. Clique em "Join as Listener"
 4. Aguarde a conexão ser estabelecida
-5. Você ouvirá o áudio do broadcaster!
+5. Ajuste o volume conforme desejado
+6. Ouça o áudio em tempo real!
 
 ## 🏗️ Arquitetura
 
@@ -112,25 +151,28 @@ php -S localhost:8000
 ```
 Broadcaster                 Supabase                 Listener
     |                          |                         |
-    |------ OFFER ------------>|                         |
-    |                          |------ OFFER ----------->|
-    |                          |<----- ANSWER ----------|
-    |<----- ANSWER ------------|                         |
+    |--- Offer (SDP) --------->|                         |
+    |                          |--- Offer (SDP) -------->|
+    |                          |<-- Answer (SDP) --------|
+    |<-- Answer (SDP) ---------|                         |
     |                          |                         |
     |<========== WebRTC P2P Connection ================>|
-    |                    (Audio Stream)                  |
+    |              (Audio Stream - Mic/MP3)              |
 ```
 
 ### Componentes
 
-- **WebRTC**: Protocolo P2P para streaming de mídia
-- **Supabase Realtime**: Sinalização e descoberta de peers
-- **MediaStream API**: Captura de áudio do microfone
+- **WebRTC** - Protocolo P2P para streaming de mídia
+- **Supabase Realtime** - Sinalização e descoberta de peers
+- **MediaStream API** - Captura de áudio do microfone
+- **Web Audio API** - Processamento e streaming de MP3
+- **HTML5 Audio Element** - Player de arquivos MP3
 
 ## 🛠️ Tecnologias
 
 - **WebRTC** - Comunicação peer-to-peer
 - **Supabase** - Backend as a Service + Realtime
+- **Web Audio API** - Processamento de áudio
 - **Vanilla JavaScript** - Sem frameworks, puro e rápido
 - **HTML5 + CSS3** - Interface moderna
 
@@ -142,19 +184,39 @@ Broadcaster                 Supabase                 Listener
 - ✅ Opera
 - ⚠️ Requer HTTPS em produção
 
+## 🎯 Casos de Uso
+
+### Modo Microfone
+- 🎙️ Podcasts ao vivo
+- 💬 Conversas em grupo
+- 🎤 Apresentações
+- 📢 Anúncios
+
+### Modo MP3 Playlist
+- 🎶 Rádio online personalizada
+- 🎧 DJ sessions remotas
+- 🎵 Streaming de música para eventos
+- 📻 Broadcasting de áudio pré-gravado
+
 ## 🔐 Segurança
 
 - Use HTTPS em produção (obrigatório para WebRTC)
 - Configure CORS adequadamente
 - Implemente autenticação para produção
 - Use TURN servers para NAT traversal em produção
+- Valide tipos de arquivo no upload de MP3
 
 ## 🐛 Troubleshooting
 
 ### Áudio não funciona
-- Verifique se o microfone está permitido no navegador
+- Verifique se o microfone/arquivos MP3 estão permitidos
 - Teste em HTTPS (necessário em produção)
 - Verifique o console do navegador para erros
+
+### MP3 não toca
+- Confirme que os arquivos são .mp3 válidos
+- Verifique o codec (MP3/MPEG suportado)
+- Teste com arquivos menores primeiro
 
 ### Conexão falha
 - Confirme as credenciais do Supabase
@@ -164,6 +226,42 @@ Broadcaster                 Supabase                 Listener
 ### NAT/Firewall
 - Em produção, use um TURN server
 - Configure ICE servers adequados
+
+## 📄 Estrutura de Arquivos
+
+```
+webrtc-audio-streaming/
+├── index.html          # Interface principal
+├── styles.css          # Estilos com tema dark
+├── app.js              # Lógica WebRTC + Playlist
+├── config.js           # Configurações Supabase
+├── README.md           # Esta documentação
+└── .gitignore          # Arquivos ignorados
+```
+
+## 🎨 Interface
+
+- **Tema Dark** moderno e elegante
+- **Controles intuitivos** para broadcaster e listener
+- **Visualizador de áudio** em tempo real
+- **Player de playlist** completo com progress bar
+- **Logs em tempo real** para debug
+- **Design responsivo** para mobile
+
+## 📚 API WebRTC
+
+O app utiliza:
+- `RTCPeerConnection` - Conexões P2P
+- `getUserMedia()` - Acesso ao microfone
+- `MediaStreamDestination` - Streaming de MP3
+- `AudioContext` - Processamento de áudio
+- Supabase Realtime - Sinalização
+
+## 🔄 Fluxo de Dados (Modo MP3)
+
+```
+Arquivo MP3 → HTML5 Audio → Web Audio API → MediaStream → WebRTC → Listeners
+```
 
 ## 📄 Licença
 
@@ -175,12 +273,16 @@ Pull requests são bem-vindos! Para mudanças maiores, abra uma issue primeiro.
 
 ## 🎯 Roadmap
 
-- [ ] Suporte a múltiplos broadcasters
-- [ ] Chat de texto
-- [ ] Gravação de áudio
-- [ ] Controle de qualidade de áudio
-- [ ] Dashboard de estatísticas
+- [x] Streaming de microfone
+- [x] Streaming de playlist MP3
+- [x] Player com controles completos
+- [ ] Modo híbrido (Mic + MP3)
+- [ ] Efeitos de áudio (equalizer, reverb)
+- [ ] Chat de texto integrado
+- [ ] Gravação de transmissões
 - [ ] Salas privadas com senha
+- [ ] Dashboard de estatísticas
+- [ ] Suporte a mais formatos (OGG, WAV)
 
 ## 📞 Suporte
 
@@ -188,4 +290,6 @@ Para problemas ou dúvidas, abra uma issue no GitHub!
 
 ---
 
-Desenvolvido com ❤️ usando WebRTC + Supabase
+**Desenvolvido com ❤️ usando WebRTC + Supabase**
+
+*Streaming de áudio nunca foi tão fácil!* 🎵
