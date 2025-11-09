@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎙️ WebRTC Audio Streaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎙️ WebRTC Audio Streaming</h1>
+            <p>Streaming de áudio P2P em tempo real</p>
+        </header>
+
+        <div class="card">
+            <div id="setup" class="section">
+                <h2>Configuração</h2>
+                <div class="form-group">
+                    <label for="roomId">Nome da Sala:</label>
+                    <input type="text" id="roomId" placeholder="Digite o nome da sala" />
+                </div>
+                <div class="form-group">
+                    <label for="userId">Seu Nome:</label>
+                    <input type="text" id="userId" placeholder="Digite seu nome" />
+                </div>
+                <div class="button-group">
+                    <button id="startBroadcast" class="btn btn-primary">
+                        🎙️ Iniciar Transmissão
+                    </button>
+                    <button id="joinListener" class="btn btn-secondary">
+                        🔊 Entrar como Ouvinte
+                    </button>
+                </div>
+            </div>
+
+            <div id="broadcasting" class="section hidden">
+                <h2>📡 Transmitindo</h2>
+                <div class="status-info">
+                    <p><strong>Sala:</strong> <span id="currentRoom"></span></p>
+                    <p><strong>Status:</strong> <span id="broadcastStatus" class="status-badge">Ativo</span></p>
+                    <p><strong>Ouvintes:</strong> <span id="listenerCount">0</span></p>
+                </div>
+                <div class="audio-visualizer">
+                    <canvas id="visualizer" width="400" height="100"></canvas>
+                </div>
+                <button id="stopBroadcast" class="btn btn-danger">
+                    ⏹️ Parar Transmissão
+                </button>
+            </div>
+
+            <div id="listening" class="section hidden">
+                <h2>🔊 Ouvindo</h2>
+                <div class="status-info">
+                    <p><strong>Sala:</strong> <span id="listeningRoom"></span></p>
+                    <p><strong>Status:</strong> <span id="listenStatus" class="status-badge">Conectado</span></p>
+                    <p><strong>Qualidade:</strong> <span id="connectionQuality">Excelente</span></p>
+                </div>
+                <div class="volume-control">
+                    <label for="volume">Volume:</label>
+                    <input type="range" id="volume" min="0" max="100" value="80" />
+                    <span id="volumeValue">80%</span>
+                </div>
+                <button id="stopListening" class="btn btn-danger">
+                    🚪 Sair da Sala
+                </button>
+            </div>
+
+            <div id="logs" class="section">
+                <h3>📋 Logs</h3>
+                <div id="logContainer" class="log-container"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Desenvolvido com WebRTC + Supabase | <a href="https://github.com" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <!-- Audio element for remote stream -->
+    <audio id="remoteAudio" autoplay></audio>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
