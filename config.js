@@ -1,8 +1,8 @@
 // Configuração do Supabase
 // IMPORTANTE: Substitua pelos seus valores reais do Supabase
 
-const SUPABASE_URL = 'https://seu-projeto.supabase.co';
-const SUPABASE_KEY = 'sua-chave-publica-anon';
+const SUPABASE_URL = 'https://hnymtcfyvtarhlocrwon.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhueW10Y2Z5dnRhcmhsb2Nyd29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4MTQ3OTQsImV4cCI6MjA3ODM5MDc5NH0.aBhoa36fnWwu98MolqCq2hKOQ8fYtauHK9UMPvbqezU';
 
 // Configuração WebRTC
 const RTC_CONFIGURATION = {
