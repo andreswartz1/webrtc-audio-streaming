@@ -10,24 +10,24 @@
     <div class="container">
         <header>
             <h1>🎙️ WebRTC Audio Streaming</h1>
-            <p>Streaming de áudio P2P em tempo real com suporte a MP3</p>
+            <p>Real-time P2P audio streaming with MP3 support</p>
         </header>
 
         <div class="card">
             <div id="setup" class="section">
-                <h2>Configuração</h2>
+                <h2>Configuration</h2>
                 <div class="form-group">
-                    <label for="roomId">Nome da Sala:</label>
-                    <input type="text" id="roomId" placeholder="Digite o nome da sala" />
+                    <label for="roomId">Room Name:</label>
+                    <input type="text" id="roomId" placeholder="Enter the name of the room" />
                 </div>
                 <div class="form-group">
-                    <label for="userId">Seu Nome:</label>
-                    <input type="text" id="userId" placeholder="Digite seu nome" />
+                    <label for="userId">Your Name:</label>
+                    <input type="text" id="userId" placeholder="Enter your name" />
                 </div>
 
                 <!-- Audio Source Selection -->
                 <div class="form-group">
-                    <label>Fonte de Áudio:</label>
+                    <label>Audio Source:</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="audioSource" value="microphone" checked />
@@ -35,30 +35,30 @@
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="audioSource" value="mp3" />
-                            <span>🎵 Arquivos MP3</span>
+                            <span>🎵 MP3 Files</span>
                         </label>
                     </div>
                 </div>
 
                 <!-- MP3 File Selection (hidden by default) -->
                 <div id="mp3Section" class="form-group hidden">
-                    <label for="mp3Files">Selecionar Arquivos MP3:</label>
+                    <label for="mp3Files">Select MP3 Files:</label>
                     <input type="file" id="mp3Files" accept="audio/mp3,audio/mpeg" multiple />
                     <div id="playlistPreview" class="playlist-preview"></div>
                 </div>
 
                 <div class="button-group">
                     <button id="startBroadcast" class="btn btn-primary">
-                        🎙️ Iniciar Transmissão
+                        🎙️ Start Broadcast
                     </button>
                     <button id="joinListener" class="btn btn-secondary">
-                        🔊 Entrar como Ouvinte
+                        🔊 Login as Listener
                     </button>
                 </div>
             </div>
 
             <div id="broadcasting" class="section hidden">
-                <h2>📡 Transmitindo</h2>
+                <h2>📡 Transmitting</h2>
                 <div class="status-info">
                     <p><strong>Sala:</strong> <span id="currentRoom"></span></p>
                     <p><strong>Fonte:</strong> <span id="audioSourceType">Microfone</span></p>
